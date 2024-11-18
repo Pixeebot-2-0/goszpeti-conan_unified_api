@@ -114,7 +114,7 @@ class ConanUnifiedApi:
     def inspect(
         self,
         conan_ref: Union[ConanRef, str],
-        attributes: List[str] = [],
+        attributes: Optional[List[str]] = None,
         remote_name: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
@@ -287,7 +287,7 @@ class ConanUnifiedApi:
         conan_options: Optional[ConanOptions] = None,
         profile="",
         update=True,
-        generators: List[str] = [],
+        generators: Optional[List[str]] = None,
         remote_name: Optional[str] = None,
     ) -> Tuple[ConanPackageId, ConanPackagePath]:
         """

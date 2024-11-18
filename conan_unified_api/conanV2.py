@@ -117,9 +117,10 @@ class ConanApi(ConanCommonUnifiedApi, metaclass=SignatureCheckMeta):
     def inspect(
         self,
         conan_ref: Union[ConanRef, str],
-        attributes: List[str] = [],
+        attributes: Optional[List[str]] = None,
         remote_name: Optional[str] = None,
     ) -> Dict[str, Any]:
+        attributes = [] if attributes is None else attributes
         conan_ref = self.conan_ref_from_reflike(conan_ref)
 
         remotes = self.get_remotes()
@@ -334,9 +335,10 @@ class ConanApi(ConanCommonUnifiedApi, metaclass=SignatureCheckMeta):
         conan_options: Optional[ConanOptions] = None,
         profile="",
         update=True,
-        generators: List[str] = [],
+        generators: Optional[List[str]] = None,
         remote_name: Optional[str] = None,
     ) -> Tuple[ConanPackageId, ConanPackagePath]:
+        generators = [] if generators is None else generators
         conan_ref = self.conan_ref_from_reflike(conan_ref)
         pkg_id = ""
         if conan_options is None:

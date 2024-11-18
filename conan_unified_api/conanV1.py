@@ -154,9 +154,10 @@ class ConanApi(ConanCommonUnifiedApi, metaclass=SignatureCheckMeta):
     def inspect(
         self,
         conan_ref: Union[ConanRef, str],
-        attributes: List[str] = [],
+        attributes: Optional[List[str]] = None,
         remote_name: Optional[str] = None,
     ) -> Dict[str, Any]:
+        attributes = [] if attributes is None else attributes
         with save_sys_path():  # can change path or run arbitrary code and thus break things
             # cast from ordered dict
             return dict(
@@ -371,9 +372,10 @@ class ConanApi(ConanCommonUnifiedApi, metaclass=SignatureCheckMeta):
         conan_options: Optional[ConanOptions] = None,
         profile="",
         update=True,
-        generators: List[str] = [],
+        generators: Optional[List[str]] = None,
         remote_name: Optional[str] = None,
     ) -> Tuple[ConanPackageId, ConanPackagePath]:
+        generators = [] if generators is None else generators
         package_id = ""
         if conan_options is None:
             conan_options = {}
