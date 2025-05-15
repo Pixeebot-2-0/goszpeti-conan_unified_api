@@ -5,6 +5,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
+import defusedxml.ElementTree
 
 conan_major = 1
 
@@ -60,7 +61,7 @@ for conan_version in test_versions[conan_major]:
 ## normalize coverage paths
 
 for cov_file in (Path(".") / "cov").glob("*.xml"):
-    root = ET.fromstring(cov_file.read_text())
+    root = defusedxml.ElementTree.fromstring(cov_file.read_text())
     source = root.find(".//sources/source")
     orig_path = source.text
     new_path = "./" + Path(source.text).name
